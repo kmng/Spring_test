@@ -1,0 +1,99 @@
+<?xml version="1.0"?>
+
+<project name="testapp3" basedir="." default="usage">
+    <property file="build.properties"/>
+
+    <property name="src.dir" value="src"/>
+    <property name="web.dir" value="war"/>
+    <property name="build.dir" value="${web.dir}/WEB-INF/classes"/>
+    <property name="name" value="testapp3"/>
+	<property name="test.dir" value="${src.dir}/com/stefantopia/testapp3/test"/>
+	
+
+    <path id="master-classpath">
+        <fileset dir="${web.dir}/WEB-INF/lib">
+            <include name="*.jar"/>
+        </fileset>
+        <!-- We need the servlet API classes: -->
+        <!--  * for Tomcat 5/6 use servlet-api.jar -->
+        <!--  * for other app servers - check the docs -->
+        <fileset dir="${appserver.lib}">
+            <include name="servlet*.jar"/>
+        </fileset>
+        <pathelement path="${build.dir}"/>
+    </path>
+
+	
+    <target name="tests" depends="build" description="Run tests">
+        <junit printsummary="on"
+            fork="false"
+            haltonfailure="false"
+            failureproperty="tests.failed"
+            showoutput="true">
+            <classpath refid="master-classpath"/>
+            <formatter type="plain" usefile="false"/>
+            
+            <batchtest>
+                <fileset dir="${build.dir}">
+                    <include name="**/*Tests.*"/>
+                </fileset>
+            </batchtest>
+            
+        </junit>
+        
+        <fail if="tests.failed">
+            tests.failed=${tests.failed}
+            ***********************************************************
+            ***********************************************************
+            ****  One or more tests failed!  Check the output ...  ****
+            ***********************************************************
+            ***********************************************************
+        </fail>
+    </target>
+		
+    <target name="usage">
+        <echo message=""/>
+        <echo message="${name} build file"/>
+        <echo message="-----------------------------------"/>
+        <echo message=""/>
+        <echo message="Available targets are:"/>
+        <echo message=""/>
+        <echo message="build     --> Build the application"/>
+        <echo message="deploy    --> Deploy application as directory"/>
+        <echo message="deploywar --> Deploy application as a WAR file"/>
+        <echo message=""/>
+    </target>
+
+    <target name="build" description="Compile main source tree java files">
+        <mkdir dir="${build.dir}"/>
+        <javac destdir="${build.dir}" source="1.5" target="1.5" debug="true"
+               deprecation="false" optimize="false" failonerror="true">
+            <src path="${src.dir}"/>
+            <classpath refid="master-classpath"/>
+        </javac>
+    </target>
+
+    <target name="deploy" depends="build" description="Deploy application">
+        <copy todir="${deploy.path}/${name}" preservelastmodified="true">
+            <fileset dir="${web.dir}">
+                <include name="**/*.*"/>
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="deploywar" depends="build" description="Deploy application as a WAR file">
+        <war destfile="${name}.war"
+             webxml="${web.dir}/WEB-INF/web.xml">
+            <fileset dir="${web.dir}">
+                <include name="**/*.*"/>
+            </fileset>
+        </war>
+        <copy todir="${deploy.path}" preservelastmodified="true">
+            <fileset dir=".">
+                <include name="*.war"/>
+            </fileset>
+        </copy>
+    </target>
+ 
+
+</project>
