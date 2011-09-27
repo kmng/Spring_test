@@ -14,6 +14,8 @@ I developed this using a Virtual Machine from Bitnami. They did a great job cons
 Future Plan
 -----------
 
-I will add Hibernate to the mixes. See whether I can add Mongodb and other stuff.
+I have added Hibernate to the mixes. See hibernate_test Branch
+
+See whether I can add Mongodb and other stuff.
 
 
