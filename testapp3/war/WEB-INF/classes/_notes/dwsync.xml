@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <dwsync>
-<file name="messages.properties" server="10.6.171.194" local="129605029115054300" remote="129605029110000000" />
-<file name="jdbc.properties" server="10.6.171.194" local="129605152990661100" remote="129605153080000000" />
+<file name="messages.properties" server="10.6.171.194" local="129605029110000000" remote="129605029110000000" />
+<file name="jdbc.properties" server="10.6.171.194" local="129605153080000000" remote="129605153080000000" />
+<file name="hibernate.cfg.xml" server="10.6.171.194" local="129616317480000000" remote="129616317480000000" />
+<file name="Product.hbm.xml" server="10.6.171.194" local="129616317480000000" remote="129616317480000000" />
 </dwsync>

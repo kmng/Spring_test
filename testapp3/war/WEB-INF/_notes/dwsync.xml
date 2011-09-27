@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <dwsync>
-<file name="web.xml" server="10.6.171.194" local="129605140259695890" remote="129605140340000000" />
-<file name="testapp3-servlet.xml" server="10.6.171.194" local="129605134916615125" remote="129605135000000000" />
-<file name="applicationContext.xml" server="10.6.171.194" local="129605152430246155" remote="129605152520000000" />
+<file name="web.xml" server="10.6.171.194" local="129605140340000000" remote="129605140340000000" />
+<file name="testapp3-servlet.xml" server="10.6.171.194" local="129605135000000000" remote="129605135000000000" />
+<file name="applicationContext.xml" server="10.6.171.194" local="129616332320000000" remote="129616332320000000" />
+<file name="Product.hbm.xml" server="10.6.171.194" local="129616215760000000" remote="129616215760000000" />
+<file name="hibernate.cfg.xml" server="10.6.171.194" local="129616215790000000" remote="129616215790000000" />
 </dwsync>

@@ -17,8 +17,8 @@
         <property name="productDao" ref="productDao"/>
     </bean>
 
-    <bean id="productDao" class="com.stefantopia.testapp3.repository.JdbcProductDao">
-        <property name="dataSource" ref="dataSource"/>
+    <bean id="productDao" class="com.stefantopia.testapp3.repository.hibernateProductDao">
+		<property name="sessionFactory" ref="sessionFactory" />
     </bean>
 
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
@@ -28,6 +28,37 @@
         <property name="password" value="${jdbc.password}"/>
     </bean>
 
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="useTransactionAwareDataSource" value="true" />
+		<property name="mappingResources">
+			<list>
+				<value>Product.hbm.xml</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="connection.pool_size">1</prop>
+				<prop key="hibernate.dialect">
+					org.hibernate.dialect.HSQLDialect
+				</prop>
+				<prop key="show_sql">true</prop>
+				<prop key="hibernate.generate_statistics">true</prop>
+				<prop key="hibernate.cglib.use_reflection_optimizer">
+					false
+				</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<tx:annotation-driven transaction-manager="transactionManager"/>
+	
     <bean id="propertyConfigurer" 
           class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="locations">
@@ -37,19 +68,4 @@
         </property>
     </bean>
 
-    <bean id="transactionManager" 
-          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-        <property name="dataSource" ref="dataSource"/>
-    </bean>
-
-    <aop:config>
-        <aop:advisor pointcut="execution(* *..ProductManager.*(..))" advice-ref="txAdvice"/>
-    </aop:config>
-
-    <tx:advice id="txAdvice">
-        <tx:attributes>
-            <tx:method name="save*"/>
-            <tx:method name="*" />
-        </tx:attributes>
-    </tx:advice>
 </beans>
