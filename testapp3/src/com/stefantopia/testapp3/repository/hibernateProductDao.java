@@ -35,6 +35,7 @@ public class hibernateProductDao  extends HibernateDaoSupport implements Product
     public void saveProduct(Product prod)
 	{
 		logger.info("Saving product: " + prod.getDescription());
+		getHibernateTemplate().saveOrUpdate(prod);
 		
 	}
 
