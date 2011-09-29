@@ -15,6 +15,4 @@ I developed this using a Virtual Machine from Bitnami. They did a great job cons
 Branch Plan
 -----------
 
-I will add Hibernate to the mixes. See whether I can add Mongodb and other stuff.
-
-
+I will add security to this application. Spring Secruity 2.0 will be used in this case. User database is used to hold account information.
